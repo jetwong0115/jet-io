@@ -1,6 +1,6 @@
 package org.jet.io.common.utils.http;
 
-public class ErrorMsgBody extends HttpResponseEntityBody {
+public class ErrorMsgBody extends HttpResponseBody {
 
     private ErrorMsgBody(String logId, int resCode, String resMsg) {
         super(logId, resCode, resMsg);

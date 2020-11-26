@@ -1,6 +1,6 @@
 package org.jet.io.common.utils.http;
 
-public class CommonBody extends HttpResponseEntityBody {
+public class CommonBody extends HttpResponseBody {
 
     private CommonBody(String logId, int resCode, String resMsg) {
         super(logId, resCode, resMsg);

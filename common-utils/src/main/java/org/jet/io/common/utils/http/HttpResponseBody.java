@@ -3,7 +3,7 @@ package org.jet.io.common.utils.http;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class HttpResponseEntityBody implements Serializable {
+public abstract class HttpResponseBody implements Serializable {
     static final int SUCCESS = 0;
     static final String SUCCESS_MSG = "OK";
 
@@ -13,7 +13,7 @@ public abstract class HttpResponseEntityBody implements Serializable {
 
     private final String msg;
 
-    HttpResponseEntityBody(String logId, int code, String msg) {
+    HttpResponseBody(String logId, int code, String msg) {
         this.logId = logId;
         this.code = code;
         this.msg = msg;
@@ -34,8 +34,8 @@ public abstract class HttpResponseEntityBody implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof HttpResponseEntityBody)) return false;
-        HttpResponseEntityBody that = (HttpResponseEntityBody) o;
+        if (!(o instanceof HttpResponseBody)) return false;
+        HttpResponseBody that = (HttpResponseBody) o;
         return code == that.code &&
                 Objects.equals(logId, that.logId) &&
                 Objects.equals(msg, that.msg);

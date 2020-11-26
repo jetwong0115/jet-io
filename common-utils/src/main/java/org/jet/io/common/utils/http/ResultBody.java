@@ -3,7 +3,7 @@ package org.jet.io.common.utils.http;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class ResultBody<T extends Object> extends HttpResponseEntityBody {
+public class ResultBody<T extends Object> extends HttpResponseBody {
 
     private final T data;
 
@@ -12,7 +12,7 @@ public class ResultBody<T extends Object> extends HttpResponseEntityBody {
         this.data = data;
     }
 
-    public static ResultBody<Object> result(String logId, Object data) {
+    public static ResultBody<Object> data(String logId, Object data) {
         return new ResultBody<>(logId, SUCCESS, SUCCESS_MSG, data);
     }
 
