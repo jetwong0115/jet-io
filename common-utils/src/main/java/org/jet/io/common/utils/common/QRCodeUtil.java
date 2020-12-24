@@ -7,13 +7,18 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 
 public class QRCodeUtil {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 生成格式为JPG的二维码工具
@@ -31,8 +36,12 @@ public class QRCodeUtil {
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         hints.put(EncodeHintType.MARGIN, 1);
 
-        BitMatrix bitMatrix = (new MultiFormatWriter()).encode(content, BarcodeFormat.QR_CODE, width, height, hints);
-        MatrixToImageWriter.writeToPath(bitMatrix, "jpg", path);
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 
+        if (Objects.nonNull(bitMatrix)) {
+            MatrixToImageWriter.writeToPath(bitMatrix, "jpg", path);
+        } else {
+            log.debug("bitMatrix = NULL");
+        }
     }
 }
