@@ -23,6 +23,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
         <!-- spring data jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,6 +57,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- 二维码生成库 -->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -70,6 +80,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
         </dependency>
 
         <dependency>
