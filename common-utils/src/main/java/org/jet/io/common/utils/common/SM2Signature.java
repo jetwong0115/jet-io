@@ -2,6 +2,10 @@ package org.jet.io.common.utils.common;
 
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.gm.GMObjectIdentifiers;
+import org.bouncycastle.crypto.CipherParameters;
+import org.bouncycastle.crypto.engines.SM2Engine;
+import org.bouncycastle.crypto.params.ParametersWithRandom;
+import org.bouncycastle.jcajce.provider.asymmetric.util.ECUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 
@@ -13,6 +17,12 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 public class SM2Signature {
+
+    private static final BouncyCastleProvider bc;
+
+    static {
+        bc = new BouncyCastleProvider();
+    }
 
     public static KeyPair generateKeyPair() throws Exception {
         // 获取SM2椭圆曲线的参数
@@ -26,6 +36,22 @@ public class SM2Signature {
         kpg.initialize(sm2Spec, new SecureRandom());
         // 获取密钥对
         return kpg.generateKeyPair();
+    }
+
+
+    public static byte[] encrypt(byte[] data, PublicKey publicKey) throws Exception {
+        CipherParameters pubKeyParameters = new ParametersWithRandom(ECUtil.generatePublicKeyParameter(publicKey));
+        SM2Engine engine = new SM2Engine();
+        engine.init(true, pubKeyParameters);
+        return engine.processBlock(data, 0, data.length);
+    }
+
+    public static byte[] decrypt(byte[] data, PrivateKey privateKey) throws Exception {
+        CipherParameters privateKeyParameters = ECUtil.generatePrivateKeyParameter(privateKey);
+
+        SM2Engine engine = new SM2Engine();
+        engine.init(false, privateKeyParameters);
+        return engine.processBlock(data, 0, data.length);
     }
 
     public static String sign(String content, PrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
@@ -45,22 +71,19 @@ public class SM2Signature {
     }
 
     public static PrivateKey toPrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final BouncyCastleProvider bc = new BouncyCastleProvider();
         KeyFactory keyFact = KeyFactory.getInstance("EC", bc);
         byte[] bytes = Base64.decodeBase64(privateKey);
         return keyFact.generatePrivate(new PKCS8EncodedKeySpec(bytes));
     }
 
     public static PublicKey toPublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        final BouncyCastleProvider bc = new BouncyCastleProvider();
         KeyFactory keyFact = KeyFactory.getInstance("EC", bc);
         byte[] bytes = Base64.decodeBase64(publicKey);
         return keyFact.generatePublic(new X509EncodedKeySpec(bytes));
     }
 
     public static boolean doCheck(String content, String sign, PublicKey publicKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
-        final BouncyCastleProvider bc = new BouncyCastleProvider();
-        Signature signature = Signature.getInstance("SM3withSm2", bc);
+        Signature signature = Signature.getInstance(GMObjectIdentifiers.sm2sign_with_sm3.toString(), bc);
         signature.initVerify(publicKey);
         signature.update(content.getBytes(StandardCharsets.UTF_8));
         return signature.verify(Hex.decode(sign));
