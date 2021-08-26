@@ -14,7 +14,7 @@ public class PageRequestDTO {
     @NotNull
     private Integer page;
 
-    @Range(min = 5, max = 100)
+    @Range(min = 1, max = 100)
     @NotNull
     private Integer size;
 

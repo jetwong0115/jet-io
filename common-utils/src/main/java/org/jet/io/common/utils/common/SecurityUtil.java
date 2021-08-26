@@ -28,7 +28,7 @@ public class SecurityUtil {
             int minLength = Math.min(versionArray1.length, versionArray2.length);
 
             int diff;
-            for(diff = 0; idx < minLength && (diff = versionArray1[idx].length() - versionArray2[idx].length()) == 0 && (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0; ++idx) {
+            for (diff = 0; idx < minLength && (diff = versionArray1[idx].length() - versionArray2[idx].length()) == 0 && (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0; ++idx) {
             }
 
             diff = diff != 0 ? diff : versionArray1.length - versionArray2.length;
@@ -43,7 +43,7 @@ public class SecurityUtil {
         StringBuilder cc = new StringBuilder();
         String code = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-        for(int i = 0; i < num; ++i) {
+        for (int i = 0; i < num; ++i) {
             cc.append(code.charAt(ran.nextInt(code.length())));
         }
 
@@ -55,7 +55,7 @@ public class SecurityUtil {
         StringBuilder cc = new StringBuilder();
         String code = "0123456789";
 
-        for(int i = 0; i < num; ++i) {
+        for (int i = 0; i < num; ++i) {
             cc.append(code.charAt(ran.nextInt(code.length())));
         }
 
@@ -67,7 +67,7 @@ public class SecurityUtil {
         StringBuilder cc = new StringBuilder();
         String code = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-        for(int i = 0; i < num; ++i) {
+        for (int i = 0; i < num; ++i) {
             cc.append(code.charAt(ran.nextInt(code.length())));
         }
 
@@ -80,7 +80,7 @@ public class SecurityUtil {
         int num = 32;
         String code = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        for(int i = 0; i < num; ++i) {
+        for (int i = 0; i < num; ++i) {
             cc.append(code.charAt(ran.nextInt(code.length())));
         }
 
@@ -102,7 +102,7 @@ public class SecurityUtil {
             byte[] b = md.digest();
             StringBuilder buf = new StringBuilder("");
 
-            for(int offset = 0; offset < b.length; ++offset) {
+            for (int offset = 0; offset < b.length; ++offset) {
                 int i = b[offset];
                 if (i < 0) {
                     i += 256;
@@ -134,7 +134,7 @@ public class SecurityUtil {
             byte[] b = md.digest();
             StringBuilder buf = new StringBuilder("");
 
-            for(int offset = 0; offset < b.length; ++offset) {
+            for (int offset = 0; offset < b.length; ++offset) {
                 int i = b[offset];
                 if (i < 0) {
                     i += 256;
@@ -164,7 +164,7 @@ public class SecurityUtil {
             byte[] var4 = messageDigest;
             int var5 = messageDigest.length;
 
-            for(int var6 = 0; var6 < var5; ++var6) {
+            for (int var6 = 0; var6 < var5; ++var6) {
                 byte aMessageDigest = var4[var6];
                 String shaHex = Integer.toHexString(aMessageDigest & 255);
                 if (shaHex.length() < 2) {
@@ -213,7 +213,7 @@ public class SecurityUtil {
     public static String byte2hex(byte[] b) {
         StringBuilder hs = new StringBuilder();
 
-        for(int n = 0; b != null && n < b.length; ++n) {
+        for (int n = 0; b != null && n < b.length; ++n) {
             String stmp = Integer.toHexString(b[n] & 255);
             if (stmp.length() == 1) {
                 hs.append('0');

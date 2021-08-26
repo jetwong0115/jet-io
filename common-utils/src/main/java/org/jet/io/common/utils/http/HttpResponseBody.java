@@ -13,7 +13,7 @@ public abstract class HttpResponseBody implements Serializable {
 
     private final String msg;
 
-   protected HttpResponseBody(String logId, int code, String msg) {
+    protected HttpResponseBody(String logId, int code, String msg) {
         this.logId = logId;
         this.code = code;
         this.msg = msg;

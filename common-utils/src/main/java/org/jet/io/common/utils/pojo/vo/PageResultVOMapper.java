@@ -2,7 +2,6 @@ package org.jet.io.common.utils.pojo.vo;
 
 import org.springframework.data.domain.Page;
 
-
 import java.util.List;
 
 public interface PageResultVOMapper<T, E> {
