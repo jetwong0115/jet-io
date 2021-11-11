@@ -32,7 +32,7 @@ public class PageResultVO<VO> implements Serializable {
     private List<VO> resultData;
 
 
-    public static <VO> PageBuilder<VO> buildPage(Page<?> page) {
+    public static  PageBuilder buildPage(Page<?> page) {
         PageData pageResult = new PageData(
                 page.getTotalElements(),
                 page.getTotalPages(),

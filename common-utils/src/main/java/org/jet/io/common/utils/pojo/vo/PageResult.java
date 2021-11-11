@@ -3,10 +3,8 @@ package org.jet.io.common.utils.pojo.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-public class PageResult<VO> implements Serializable {
+public class PageResult<T> implements Serializable {
 
     private static final long serialVersionUID = 3862453451286225289L;
 
@@ -29,9 +27,19 @@ public class PageResult<VO> implements Serializable {
     private boolean hasPrevious;
 
     @JsonProperty("result_data")
-    private List<VO> resultData;
+    private T resultData;
 
     public PageResult() {
+    }
+
+    PageResult(long totalElements, long totalPages, boolean first, boolean last, boolean hasNext, boolean hasPrevious, T resultData) {
+        this.totalElements = totalElements;
+        this.totalPages = totalPages;
+        this.first = first;
+        this.last = last;
+        this.hasNext = hasNext;
+        this.hasPrevious = hasPrevious;
+        this.resultData = resultData;
     }
 
     public String toString() {
@@ -62,7 +70,7 @@ public class PageResult<VO> implements Serializable {
         this.hasPrevious = hasPrevious;
     }
 
-    public void setResultData(List<VO> resultData) {
+    public void setResultData(T resultData) {
         this.resultData = resultData;
     }
 
@@ -90,21 +98,11 @@ public class PageResult<VO> implements Serializable {
         return hasPrevious;
     }
 
-    public List<VO> getResultData() {
+    public T getResultData() {
         return resultData;
     }
 
-    PageResult(long totalElements, long totalPages, boolean first, boolean last, boolean hasNext, boolean hasPrevious, List<VO> resultData) {
-        this.totalElements = totalElements;
-        this.totalPages = totalPages;
-        this.first = first;
-        this.last = last;
-        this.hasNext = hasNext;
-        this.hasPrevious = hasPrevious;
-        this.resultData = resultData;
-    }
-
-    public static class PageResultBuilder<VO> {
+    public static class PageResultBuilder<T> {
         private long totalElements;
         private long totalPages;
         private boolean first;
@@ -115,43 +113,45 @@ public class PageResult<VO> implements Serializable {
         PageResultBuilder() {
         }
 
-        public PageResult.PageResultBuilder<VO> totalElements(long totalElements) {
+        public PageResult.PageResultBuilder<T> totalElements(long totalElements) {
             this.totalElements = totalElements;
             return this;
         }
 
-        public PageResult.PageResultBuilder<VO> totalPages(long totalPages) {
+
+        public PageResult.PageResultBuilder<T> totalPages(long totalPages) {
             this.totalPages = totalPages;
             return this;
         }
 
-        public PageResult.PageResultBuilder<VO> first(boolean first) {
+        public PageResult.PageResultBuilder<T> first(boolean first) {
             this.first = first;
             return this;
         }
 
-        public PageResult.PageResultBuilder<VO> last(boolean last) {
+        public PageResult.PageResultBuilder<T> last(boolean last) {
             this.last = last;
             return this;
         }
 
-        public PageResult.PageResultBuilder<VO> hasNext(boolean hasNext) {
+        public PageResult.PageResultBuilder<T> hasNext(boolean hasNext) {
             this.hasNext = hasNext;
             return this;
         }
 
-        public PageResult.PageResultBuilder<VO> hasPrevious(boolean hasPrevious) {
+        public PageResult.PageResultBuilder<T> hasPrevious(boolean hasPrevious) {
             this.hasPrevious = hasPrevious;
             return this;
         }
 
-        public PageResult<VO> build(List<VO> resultData) {
+
+        public <E> PageResult<E> build(E resultData) {
             return new PageResult<>(this.totalElements, this.totalPages, this.first, this.last, this.hasNext, this.hasPrevious, resultData);
         }
     }
 
-    public static <VO> PageResult.PageResultBuilder<VO> builder() {
-        return new PageResult.PageResultBuilder<>();
+    public static <T> PageResultBuilder<T> builder() {
+        return new PageResultBuilder<>();
     }
 
 
