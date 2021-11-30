@@ -113,6 +113,15 @@ public class PageResult<T> implements Serializable {
         PageResultBuilder() {
         }
 
+        public PageResultBuilder(long totalElements, long totalPages, boolean first, boolean last, boolean hasNext, boolean hasPrevious) {
+            this.totalElements = totalElements;
+            this.totalPages = totalPages;
+            this.first = first;
+            this.last = last;
+            this.hasNext = hasNext;
+            this.hasPrevious = hasPrevious;
+        }
+
         public PageResult.PageResultBuilder<T> totalElements(long totalElements) {
             this.totalElements = totalElements;
             return this;
@@ -152,6 +161,18 @@ public class PageResult<T> implements Serializable {
 
     public static <T> PageResultBuilder<T> builder() {
         return new PageResultBuilder<>();
+    }
+
+    public static <T> PageResultBuilder<T> builder(long totalElements, int page, int size) {
+        long totalPages = (totalElements - 1) / size + 1;
+        PageResultBuilder<T> builder = new PageResultBuilder<>();
+        builder.totalElements(totalElements);
+        builder.totalPages(totalPages);
+        builder.first(page == 1);
+        builder.last(page == totalPages);
+        builder.hasNext(page < totalPages);
+        builder.hasPrevious(page > 1);
+        return builder;
     }
 
 
