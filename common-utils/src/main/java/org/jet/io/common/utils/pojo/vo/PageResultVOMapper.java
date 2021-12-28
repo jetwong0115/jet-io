@@ -3,7 +3,7 @@ package org.jet.io.common.utils.pojo.vo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-
+@Deprecated
 public interface PageResultVOMapper<T, E> {
 
     PageResultVO<T> buildPageResult(Page<E> page, List<T> vList);

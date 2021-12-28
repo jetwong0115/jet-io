@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-
+@Deprecated
 public class PageResultVOMapperImpl<V, E> implements PageResultVOMapper<V, E> {
 
     @Override

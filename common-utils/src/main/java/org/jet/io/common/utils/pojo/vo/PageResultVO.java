@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.List;
-
+@Deprecated
 public class PageResultVO<VO> implements Serializable {
 
     private static final long serialVersionUID = 780613331365571473L;
