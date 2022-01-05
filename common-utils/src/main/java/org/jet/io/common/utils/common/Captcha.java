@@ -26,13 +26,19 @@ public class Captcha {
     public void set(int width, int height, int num, String code) {
         this.width = width;
         this.height = height;
-        this.setNum(num);
-        this.setCode(code);
+        this.num = num;
+        this.code = code;
     }
 
     public void set(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    public void set(int width, int height, int num) {
+        this.width = width;
+        this.height = height;
+        this.num = num;
     }
 
     public int getWidth() {
