@@ -9,24 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 public class AesUtil {
-    private static final String secretKey = "a2d28009a2d28009";
 
-    /**
-     * @param cleartext
-     * @return
-     */
-    public static String encrypt(String cleartext) {
-        if (StringUtils.isEmpty(cleartext)) {
-            return cleartext;
-        }
-        try {
-            byte[] result = encrypt(secretKey, cleartext.getBytes());
-            return new String(Base64.getEncoder().encode(result));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /*
      * 加密
@@ -54,19 +37,6 @@ public class AesUtil {
         return cipher.doFinal(clear);
     }
 
-    public static String decrypt(String encrypted) {
-        if (StringUtils.isEmpty(encrypted)) {
-            return encrypted;
-        }
-        try {
-            byte[] enc = Base64.getDecoder().decode(encrypted);
-            byte[] result = decrypt(secretKey, enc);
-            return new String(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /*
      * 解密
