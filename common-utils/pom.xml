@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>common-utils</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <packaging>jar</packaging>
 
     <name>common-utils</name>
@@ -26,6 +26,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- spring data jpa -->
         <dependency>
